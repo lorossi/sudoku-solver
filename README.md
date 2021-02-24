@@ -1,2 +1,3 @@
-# sudoku-solver
- A sudoku solver made in Go, supporting text and image input
+# sudoku solver
+
+A sudoku solver made in Go, supporting text and image inpu t

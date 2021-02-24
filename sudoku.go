@@ -136,10 +136,13 @@ func (s *Sudoku) findFirstFree() (free Position) {
 }
 
 // Process image
-func (s *Sudoku) processImage() {
+func (s *Sudoku) processImage() (e error) {
 	// load source image
 	s.sourceImg = gocv.IMRead(s.inputPath, gocv.IMReadColor)
 	defer s.sourceImg.Close()
+	if s.sourceImg.Empty() {
+		return errors.New("Cannot load image as it's empty")
+	}
 	// convert it to gray
 	gray := gocv.NewMat()
 	gocv.CvtColor(s.sourceImg, &gray, gocv.ColorRGBToGray)
@@ -275,7 +278,9 @@ func (s *Sudoku) LoadFromImage(inputPath string) (e error) {
 		return e
 	}
 	// do some effects to image so that it's easier for the ocr to convert
-	s.processImage()
+	if e = s.processImage(); e != nil {
+		return e
+	}
 	// detect all containers
 	containers, area := s.imageDetectContainers()
 	if containers == 0 || area == 0 {

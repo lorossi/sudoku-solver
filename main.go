@@ -35,17 +35,17 @@ func main() {
 	// check input flags
 	if *directInput != "" {
 		if e = s.LoadFromBytes([]byte(*directInput)); e != nil {
-			fmt.Println(e)
+			printError(e)
 			return
 		}
 	} else if *fileInput != "" {
 		if e := s.LoadFromFile(*fileInput); e != nil {
-			fmt.Println(e)
+			printError(e)
 			return
 		}
 	} else if *imageInput != "" {
-		if e := s.LoadFromImage("sample3.png"); e != nil {
-			fmt.Println(e)
+		if e := s.LoadFromImage(*imageInput); e != nil {
+			printError(e)
 			return
 		}
 	} else {
@@ -57,7 +57,7 @@ func main() {
 	var iterations int64
 	iterations, e = s.Solve()
 	if e != nil {
-		fmt.Println(e)
+		printError(e)
 		return
 	}
 
@@ -74,7 +74,7 @@ func main() {
 		// save to file
 		s.SaveToFile(*fileOutput)
 		if e != nil {
-			fmt.Println(e)
+			printError(e)
 			return
 		}
 	}
@@ -83,7 +83,7 @@ func main() {
 		// write as image
 		e = s.SaveToImage(*imageOutput)
 		if e != nil {
-			fmt.Println(e)
+			printError(e)
 			return
 		}
 	}

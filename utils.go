@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
 )
 
 func getCoords(i, width int8) (x, y int8) {
@@ -17,6 +16,17 @@ func printError(e error) {
 	// reset ansi code
 	reset := "\u001b[0m"
 	message := style + e.Error() + reset
-	fmt.Fprint(os.Stdout, message)
-	fmt.Fprint(os.Stdout, "\n")
+	fmt.Println(message)
+}
+
+func printSuccess(a ...interface{}) {
+	// bold green text
+	style := "\u001b[92;1m\u001b[1m"
+	fmt.Print(style)
+	for _, i := range a {
+		fmt.Print(i, " ")
+	}
+	// reset ansi code
+	reset := "\u001b[0m"
+	fmt.Println(reset)
 }

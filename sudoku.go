@@ -24,6 +24,7 @@ type Position struct {
 type Sudoku struct {
 	grid                               [9][9]int8
 	visited                            []Position
+	debug                              bool
 	remaining                          int8
 	tempFolder                         string
 	inputPath, outputPath              string
@@ -46,9 +47,10 @@ func NewSudoku() (s Sudoku) {
 	}
 	s.remaining = 81
 	s.tempFolder = "temp/"
-	s.minArea, s.maxArea, s.maxAspectRatio, s.border = 50, 500, 3, 5
-	s.fontColor = color.RGBA{155, 0, 0, 255}
+	s.minArea, s.maxArea, s.maxAspectRatio, s.border = 150, 800, 3, 5
+	s.fontColor = color.RGBA{0, 0, 0, 255}
 	s.blurRadius = 5
+	s.debug = false
 	return
 }
 
@@ -152,6 +154,11 @@ func (s *Sudoku) processImage() (e error) {
 	// threshold it using Otsu, no need to specify a threshold
 	threshold := gocv.NewMatWithSize(s.sourceImg.Size()[0], s.sourceImg.Size()[1], gocv.MatTypeCV16S)
 	gocv.Threshold(blur, &threshold, 0, 255.0, gocv.ThresholdBinary+gocv.ThresholdOtsu)
+
+	if s.debug {
+		gocv.IMWrite("process.png", threshold)
+	}
+
 	// copy the image into the permanent variable
 	s.processedImg = threshold.Clone()
 	return
@@ -172,6 +179,10 @@ func (s *Sudoku) rectAspectRatio(rect image.Rectangle) (aspectRatio float64) {
 
 // Detects the bounding boxes for the letters
 func (s *Sudoku) imageDetectContainers() (containersFound int, containerArea float64) {
+	s.sourceImg = gocv.IMRead(s.inputPath, gocv.IMReadColor)
+	defer s.sourceImg.Close()
+	debugImg := s.sourceImg.Clone()
+
 	// var containing area of the candidate cotnainer rect
 	containerArea = 0
 	// var containing the outer rectangle
@@ -191,6 +202,9 @@ func (s *Sudoku) imageDetectContainers() (containersFound int, containerArea flo
 			// the aspect ratio must be under a certain value (it must be more or less squar-ish)
 			if aspectRatio <= s.maxAspectRatio {
 				s.digitContainers = append(s.digitContainers, rect)
+				if s.debug {
+					gocv.Rectangle(&debugImg, rect, color.RGBA{255, 0, 0, 0}, 2)
+				}
 			}
 		} else if area > containerArea {
 			// if the found area is the biggest so far
@@ -203,7 +217,10 @@ func (s *Sudoku) imageDetectContainers() (containersFound int, containerArea flo
 				s.containerRect = rect
 			}
 		}
+	}
 
+	if s.debug {
+		gocv.IMWrite("debug.png", debugImg)
 	}
 
 	containersFound = len(s.digitContainers)
@@ -267,7 +284,7 @@ func (s *Sudoku) fillGridFromContainers() (e error) {
 		s.remaining--
 	}
 
-	return
+	return nil
 }
 
 // LoadFromImage -> Load sudoku from image
@@ -295,7 +312,7 @@ func (s *Sudoku) LoadFromImage(inputPath string) (e error) {
 		return e
 	}
 
-	return
+	return nil
 }
 
 // SaveToImage -> Save the solved sudoku into source image

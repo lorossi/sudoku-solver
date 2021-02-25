@@ -38,16 +38,19 @@ func main() {
 			printError(e)
 			return
 		}
+		printSuccess("Sudoku loaded from console")
 	} else if *fileInput != "" {
 		if e := s.LoadFromFile(*fileInput); e != nil {
 			printError(e)
 			return
 		}
+		printSuccess("Sudoku loaded from file", *fileInput)
 	} else if *imageInput != "" {
 		if e := s.LoadFromImage(*imageInput); e != nil {
 			printError(e)
 			return
 		}
+		printSuccess("Sudoku loaded from image", *imageInput)
 	} else {
 		flag.PrintDefaults()
 		return
@@ -61,7 +64,7 @@ func main() {
 		return
 	}
 
-	fmt.Println("Solved in", iterations, "iterations")
+	printSuccess("Solved in", iterations, "iterations")
 
 	// save the output as wanted by the user
 
@@ -77,6 +80,7 @@ func main() {
 			printError(e)
 			return
 		}
+		printSuccess("File", *fileOutput, "created")
 	}
 
 	if *imageOutput != "" {
@@ -86,5 +90,6 @@ func main() {
 			printError(e)
 			return
 		}
+		printSuccess("Image", *imageOutput, "created")
 	}
 }

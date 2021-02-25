@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"time"
 )
 
 func main() {
@@ -56,6 +57,9 @@ func main() {
 		return
 	}
 
+	// start measuring time
+	started := time.Now()
+
 	// attempt to solve the sudoku
 	var iterations int64
 	iterations, e = s.Solve()
@@ -64,12 +68,17 @@ func main() {
 		return
 	}
 
+	// calculate time elapsed
+	elapsed := time.Now().Sub(started)
+
 	printSuccess("Solved in", iterations, "iterations")
+	printSuccess("It took", elapsed)
 
 	// save the output as wanted by the user
 
 	if *directOutput {
 		// print in console
+		fmt.Println()
 		fmt.Println(s.ShowGrid(*plaintextOutput))
 	}
 

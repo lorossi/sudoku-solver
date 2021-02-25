@@ -1,12 +1,12 @@
 # sudoku solver
 
-A sudoku solver made in Go, supporting text and image input.
+A sudoku solver made in Go, supporting text and image input and output.
 
-## Usage
+## Description
 
 Provide an unsolved soduku (either in form of a screenshot, from a file or directly from the console) and have this program solve it and produce the output in many different formats!
 
-### Sample usage
+## How to use
 
 Before being able to run the script, either download the last release, clone the repo or build it from source. Then open the terminal and navigate to the folder containing the executable file.
 
@@ -19,7 +19,7 @@ Of course all the parameters can be mixed
 - Load sudoku from a file called `sudoku-extreme.txt` and save it into an image called `that-was-easy.png`: `sudoku-solver --fileinput sudoku-extreme.txt --imageoutput that-was-easy.png`
 - Load sudoku from an image called `another-sudoku.png` and print it into terminal: `sudoku-solver --imageinput another-sudoku.png --stringoutput`
 
-### Commands
+## Commands
 
 Complete list of commands:
 | **Command** | **Description** | **Notes** |

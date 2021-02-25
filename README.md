@@ -1,4 +1,4 @@
-# sudoku solver
+# Sudoku Solver
 
 A sudoku solver made in Go, supporting text and image input and output.
 

@@ -443,10 +443,8 @@ func (s *Sudoku) SaveToFile(outputPath string) (e error) {
 func (s *Sudoku) ShowGrid(plaintext bool) (grid string) {
 	// var containing the newline seprator
 	var newl string
-	if plaintext {
-		newl = ""
-	} else {
-		newl = ""
+	newl = ""
+	if !plaintext {
 		for i := int8(0); i < 13; i++ {
 			newl += "-"
 		}
@@ -454,7 +452,6 @@ func (s *Sudoku) ShowGrid(plaintext bool) (grid string) {
 	}
 
 	grid = ""
-
 	grid += newl
 	for y := int8(0); y < 9; y++ {
 		if y%3 == 0 && y != 0 {

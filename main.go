@@ -7,13 +7,13 @@ import (
 )
 
 func main() {
-	directInput := flag.String("stringinput", "", "Load sudoku from console")
+	directInput := flag.String("stringinput", "", "Load sudoku from terminal")
+	directOutput := flag.Bool("stringoutput", false, "Print solved sudoku in terminal")
 	fileInput := flag.String("fileinput", "", "Load sudoku from file")
-	imageInput := flag.String("imageinput", "", "Load sudoku from console")
-	directOutput := flag.Bool("stringoutput", false, "Print output in console")
-	plaintextOutput := flag.Bool("plaintext", false, "Print output in plaintext")
 	fileOutput := flag.String("fileoutput", "", "Write solved sudoku in file")
+	imageInput := flag.String("imageinput", "", "Load sudoku from image")
 	imageOutput := flag.String("imageoutput", "", "Write solved sudoku over image")
+	plaintextOutput := flag.Bool("plaintext", false, "Print solved sudoku in plaintext")
 	flag.Parse()
 
 	if flag.NFlag() == 0 {
@@ -39,7 +39,7 @@ func main() {
 			printError(e)
 			return
 		}
-		printSuccess("Sudoku loaded from console")
+		printSuccess("Sudoku loaded from terminal")
 	} else if *fileInput != "" {
 		if e := s.LoadFromFile(*fileInput); e != nil {
 			printError(e)
@@ -77,7 +77,7 @@ func main() {
 	// save the output as wanted by the user
 
 	if *directOutput {
-		// print in console
+		// print in terminal
 		fmt.Println()
 		fmt.Println(s.ShowGrid(*plaintextOutput))
 	}

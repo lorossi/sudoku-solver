@@ -1,6 +1,6 @@
 # Sudoku Solver
 
-A sudoku solver made in Go, supporting text and image input and output.
+A blazing fast sudoku solver made in Go, supporting text and image input and output.
 
 ## Description
 

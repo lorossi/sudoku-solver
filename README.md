@@ -1,6 +1,44 @@
 # sudoku solver
 
-A sudoku solver made in Go, supporting text and image input
+A sudoku solver made in Go, supporting text and image input.
+
+## Usage
+
+Provide an unsolved soduku (either in form of a screenshot, from a file or directly from the console) and have this program solve it and produce the output in many different formats!
+
+### Sample usage
+
+Before being able to run the script, either download the last release, clone the repo or build it from source. Then open the terminal and navigate to the folder containing the executable file.
+
+- Load sudoku from a file called `sudoku-1.png` and save it into another image called `solved.png`: `sudoku-solver --imageinput sudoku-1.png --imageoutput solved.png`
+- Load sudoku from console and print it in terminal: `sudoku-solver --stringinput --4-6--13-5-------6-3-----2-9---473--------8---2-1---94---------7---59----12----7 --stringoutput`
+- Load sudoku from file called `sudoku-unsolvable.txt` and save it to a file called `sudoku-solved.txt`: `sudoku-solver --fileinput sudoku-unsolvable.txt --fileoutput sudoku-solved.txt`
+
+Of course all the parameters can be mixed
+
+- Load sudoku from a file called `sudoku-extreme.txt` and save it into an image called `that-was-easy.png`: `sudoku-solver --fileinput sudoku-extreme.txt --imageoutput that-was-easy.png`
+- Load sudoku from an image called `another-sudoku.png` and print it into terminal: `sudoku-solver --imageinput another-sudoku.png --stringoutput`
+
+### Commands
+
+Complete list of commands:
+| **Command** | **Description** | **Notes** |
+|:-:|:-:|:-:|
+| `-h --help` | show help | |
+| `--fileinput` | Load sudoku from file | Line breaks are not necessary, use "-" or "0" as placeholder for empty cells |
+| `--fileoutput` | Write solved sudoku in file | Will be written in a prettified way unless `--plaintext` flag is provided |
+| `--imageinput` | Load sudoku from an image | |
+| `--imageoutput` | Write solved sudoku over image |
+| `--stringinput` | Load sudoku from terminal | Write all in one line, use "-" or "0" as placeholder for empty cells |
+| `--stringoutput` | Print solved sudoku in terminal |
+| `--plaintext` | Print solved sudoku in plaintext | Only valid if used with `--fileoutput` or `--stringoutput` flags |
+
+## Requirements
+
+In order to run this program from source (or compile it), you need to have installed:
+
+- Gcc compiler
+- Tesseract OCR
 
 ## Sample input and output
 
@@ -10,7 +48,7 @@ A sudoku solver made in Go, supporting text and image input
 
 ![unsolved-sudoku](sample/sudoku-1.png)
 
-*[courtesy of sudoku.com](https://sudoku.com/)
+[*courtesy of sudoku.com*](https://sudoku.com/)
 
 #### Sample outputs
 
@@ -110,3 +148,7 @@ File *(sample/sudoku-3.txt)*
 - File output: *(sample/solved-3.txt)*
 
 `496157832218396745753284196962415378185763429374928561531672984827549613649831257`
+
+## License
+
+This project is distributed under CC 4.0 License.

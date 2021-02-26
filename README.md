@@ -150,6 +150,10 @@ File *(sample/sudoku-3.txt)*
 
 `496157832218396745753284196962415378185763429374928561531672984827549613649831257`
 
+## Todo
+
+I would really like to implement my own method to detect numbers, either via some kind of image processing analysys or by using neural network. It's kind of a long term project tho, it won't be done until a reasonably long time.
+
 ## License
 
 This project is distributed under CC 4.0 License.

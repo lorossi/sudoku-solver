@@ -24,7 +24,8 @@ Of course all the parameters can be mixed
 Complete list of commands:
 | **Command** | **Description** | **Notes** |
 |:-:|:-:|:-:|
-| `-h --help` | show help | |
+| `-h --help` | Show help | |
+| `--version` | Show current version | |
 | `--fileinput` | Load sudoku from file | Line breaks are not necessary, use "-" or "0" as placeholder for empty cells |
 | `--fileoutput` | Write solved sudoku in file | Will be written in a prettified way unless `--plaintext` flag is provided |
 | `--imageinput` | Load sudoku from an image | |

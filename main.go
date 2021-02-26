@@ -1,12 +1,14 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"time"
 )
 
 func main() {
+	version := flag.Bool("version", false, "Get current program version")
 	directInput := flag.String("stringinput", "", "Load sudoku from terminal")
 	directOutput := flag.Bool("stringoutput", false, "Print solved sudoku in terminal")
 	fileInput := flag.String("fileinput", "", "Load sudoku from file")
@@ -17,13 +19,31 @@ func main() {
 	flag.Parse()
 
 	if flag.NFlag() == 0 {
+		printError(errors.New("No flags provided"))
 		flag.PrintDefaults()
 		// now exit
 		return
 	}
 
+	// check version flag
+	if *version {
+		printSuccess("Current version:", CurrentVersion)
+		return
+	}
+
+	// check input flags
+	if *directInput == "" && *fileInput == "" && *imageInput == "" {
+
+		printError(errors.New("No output provided"))
+		fmt.Print("\n")
+		flag.PrintDefaults()
+		return
+	}
+
 	// check output flags
 	if !*directOutput && *fileOutput == "" && *imageOutput == "" {
+		printError(errors.New("No output provided"))
+		fmt.Print("\n")
 		flag.PrintDefaults()
 		return
 	}
@@ -52,9 +72,6 @@ func main() {
 			return
 		}
 		printSuccess("Sudoku loaded from image", *imageInput)
-	} else {
-		flag.PrintDefaults()
-		return
 	}
 
 	// start measuring time
@@ -68,7 +85,7 @@ func main() {
 		return
 	}
 
-	// calculate time elapsed
+	// calculate elapsed time
 	elapsed := time.Now().Sub(started)
 
 	printSuccess("Solved in", iterations, "iterations")

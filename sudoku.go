@@ -15,6 +15,9 @@ import (
 	"gocv.io/x/gocv"
 )
 
+// CurrentVersion -> current program version
+const CurrentVersion string = "1.0.0"
+
 // Position -> struct containing the position, used in backtracking
 type Position struct {
 	x, y int8
